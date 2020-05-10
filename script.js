@@ -2,6 +2,7 @@ async function setup(){
     const root = document.querySelector('.root')
     const searchInput = document.querySelector('.searchInput')
     const searchSelect = document.querySelector('.searchSelect')
+    const backBtn = document.querySelector('.backBtn')
 
 
     let arr = []
@@ -51,14 +52,14 @@ async function setup(){
 
 
             arr.filter(country => country.name === clickedCountry ).forEach( country => {
-                let card = document.createElement('div')
-                card.classList.add('card')
-                let title = document.createElement('div')
-                title.classList.add('cardTitle')
-                title.innerText = country.name
-                let imgFlag = document.createElement('img')
-                imgFlag.src = country.flag
-                imgFlag.classList.add('img')
+                let cardBig = document.createElement('div')
+                cardBig.classList.add('cardBig')
+                let titleBig = document.createElement('div')
+                titleBig.classList.add('cardTitleBig')
+                titleBig.innerText = country.name
+                let imgFlagBig = document.createElement('img')
+                imgFlagBig.src = country.flag
+                imgFlagBig.classList.add('img')
         
                 let population = document.createElement('div')
                 population.innerHTML = `Population: ${country.population}`
@@ -71,37 +72,27 @@ async function setup(){
                 capital.classList.add('capital')
 
                 let borders = document.createElement('div')
-                // borders.innerHTML = `borders: ${country.borders}`
                 borders.classList.add('borders')
-
-                let borderList = country.borders
-
-                
-
-
-              console.log(arr.filter( country=> country.alpha3Code == borderList[0])[0].name);
-              
-
-                
-                
-
-
-                
-
 
                 borders.innerHTML = `borders: ${country.borders.map(border => border = arr.filter( country=> country.alpha3Code === border)[0].name)}`
 
 
         
                 
-                card.appendChild(imgFlag)
-                card.appendChild(title)
-                card.appendChild(population)
-                card.appendChild(region)
-                card.appendChild(capital)
-                card.appendChild(borders)
+                cardBig.appendChild(imgFlagBig)
+                cardBig.appendChild(titleBig)
+                cardBig.appendChild(population)
+                cardBig.appendChild(region)
+                cardBig.appendChild(capital)
+                cardBig.appendChild(borders)
 
-                root.appendChild(card)
+                root.appendChild(cardBig)
+
+                backBtn.classList.add('show')
+                searchInput.classList.add('hide')
+                searchSelect.classList.add('hide')
+
+                
 
             })
 
@@ -142,7 +133,7 @@ async function setup(){
         if(index >= 0){
             let re = new RegExp(text,"gi");
             country.innerHTML = country.innerHTML.replace(re, function(match) {
-            return `<span>${match}</span>`
+            return `<span class="highlight">${match}</span>`
         });
         }
     }

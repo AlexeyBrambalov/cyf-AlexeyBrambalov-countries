@@ -13,6 +13,11 @@
     background-color: lightgrey;
 }
 
+body{
+    background-color: lightgrey;
+
+}
+
 .card{
     width: 20vw;
     height: 30vh;
@@ -35,10 +40,16 @@
     width: 100%;
     background-color: white;
     height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .titleText{
-    font-weight: 800;
+    margin-left: 5vw;
+    font-size: 20px;
+
+
 }
 
 
@@ -54,6 +65,49 @@
 }
 
 
-span{
+.highlight{
     background-color: yellow;
+}
+
+
+.cardTitle{
+    cursor: pointer;
+}
+
+.backBtn{
+    width: 60px;
+    height: 35px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-weight: 800;
+    display: none;
+    margin-left: 5vw;
+
+}
+
+.show{
+    display: block;
+}
+
+.hide{
+    display: none;
+}
+
+.searchInput{
+    width: 20vw;
+    height: 35px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.searchSelect{
+    width: 15vw;
+    height: 35px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 5px;
+
+
 }
