@@ -59,32 +59,58 @@ async function setup(){
                 titleBig.innerText = country.name
                 let imgFlagBig = document.createElement('img')
                 imgFlagBig.src = country.flag
-                imgFlagBig.classList.add('img')
+                imgFlagBig.classList.add('imgFlagBig')
+
+                let nativeName = document.createElement('div')
+                nativeName.classList.add('nativeName')
+                nativeName.innerText = "Native name: " + country.nativeName
         
                 let population = document.createElement('div')
                 population.innerHTML = `Population: ${country.population}`
         
                 let region = document.createElement('div')
                 region.innerHTML = `Region: ${country.region}`
+
+                let subRegion = document.createElement('div')
+                subRegion.innerHTML = `Sub region: ${country.subregion}`
         
                 let capital = document.createElement('div')
                 capital.innerHTML = `Capital: ${country.capital}`
                 capital.classList.add('capital')
+
+                let topLevelDomain = document.createElement('div')
+                topLevelDomain.innerHTML = `Top Level Domain: ${country.topLevelDomain}`
+
+                let currencies = document.createElement('div')
+                currencies.innerHTML = `Currencies: ${country.currencies[0].code}`
+
+                
+                let languages = document.createElement('div')
+                languages.innerHTML = `Languages: ${country.languages.map(language => language = " " + language.name )}`
 
                 let borders = document.createElement('div')
                 borders.classList.add('borders')
 
                 borders.innerHTML = `borders: ${country.borders.map(border => border = arr.filter( country=> country.alpha3Code === border)[0].name)}`
 
+                let cardRight = document.createElement('div')
+
 
         
                 
                 cardBig.appendChild(imgFlagBig)
-                cardBig.appendChild(titleBig)
-                cardBig.appendChild(population)
-                cardBig.appendChild(region)
-                cardBig.appendChild(capital)
-                cardBig.appendChild(borders)
+                cardRight.appendChild(titleBig)
+                cardRight.appendChild(nativeName)
+                cardRight.appendChild(population)
+                cardRight.appendChild(region)
+                cardRight.appendChild(subRegion)
+                cardRight.appendChild(capital)
+                cardRight.appendChild(topLevelDomain)
+                cardRight.appendChild(currencies)
+                cardRight.appendChild(languages)
+                cardRight.appendChild(borders)
+
+                cardBig.appendChild(cardRight)
 
                 root.appendChild(cardBig)
 
