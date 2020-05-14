@@ -13,6 +13,8 @@ async function setup(){
         arr = Array.from(obj) 
         arr.forEach(addCountry)
     }
+    
+    await loadCountrylist();
 
 
     function addCountry(country){
@@ -50,100 +52,115 @@ async function setup(){
 
             let clickedCountry = country.name
 
-
-            arr.filter(country => country.name === clickedCountry ).forEach( country => {
-                let cardBig = document.createElement('div')
-                cardBig.classList.add('cardBig')
-                let titleBig = document.createElement('div')
-                titleBig.classList.add('cardTitleBig')
-                titleBig.innerText = country.name
-                let imgFlagBig = document.createElement('img')
-                imgFlagBig.src = country.flag
-                imgFlagBig.classList.add('imgFlagBig')
-
-                let nativeName = document.createElement('div')
-                nativeName.classList.add('nativeName')
-                nativeName.innerText = "Native name: " + country.nativeName
-        
-                let population = document.createElement('div')
-                population.innerHTML = `Population: ${country.population}`
-        
-                let region = document.createElement('div')
-                region.innerHTML = `Region: ${country.region}`
-
-                let subRegion = document.createElement('div')
-                subRegion.innerHTML = `Sub region: ${country.subregion}`
-        
-                let capital = document.createElement('div')
-                capital.innerHTML = `Capital: ${country.capital}`
-                capital.classList.add('capital')
-
-                let topLevelDomain = document.createElement('div')
-                topLevelDomain.innerHTML = `Top Level Domain: ${country.topLevelDomain}`
-
-                let currencies = document.createElement('div')
-                currencies.innerHTML = `Currencies: ${country.currencies[0].code}`
-
-                
-                let languages = document.createElement('div')
-                languages.innerHTML = `Languages: ${country.languages.map(language => language = " " + language.name )}`
-
-                let borders = document.createElement('div')
-                borders.classList.add('borders')
-
-                borders.innerHTML = `borders: ${country.borders.map(border => border = arr.filter( country=> country.alpha3Code === border)[0].name)}`
-
-                let cardRight = document.createElement('div')
-
-
-        
-                
-                cardBig.appendChild(imgFlagBig)
-                cardRight.appendChild(titleBig)
-                cardRight.appendChild(nativeName)
-                cardRight.appendChild(population)
-                cardRight.appendChild(region)
-                cardRight.appendChild(subRegion)
-                cardRight.appendChild(capital)
-                cardRight.appendChild(topLevelDomain)
-                cardRight.appendChild(currencies)
-                cardRight.appendChild(languages)
-                cardRight.appendChild(borders)
-
-                cardBig.appendChild(cardRight)
-
-                root.appendChild(cardBig)
-
-                backBtn.classList.add('show')
-                searchInput.classList.add('hide')
-                searchSelect.classList.add('hide')
-
-                
-
-            })
-
+            arr.filter(country => country.name === clickedCountry ).forEach(showCountry)
 
 
         })
 
+        function showCountry(country){
+
+            let cardBig = document.createElement('div')
+            cardBig.classList.add('cardBig')
+            let titleBig = document.createElement('div')
+            titleBig.classList.add('cardTitleBig')
+            titleBig.innerText = country.name
+            let imgFlagBig = document.createElement('img')
+            imgFlagBig.src = country.flag
+            imgFlagBig.classList.add('imgFlagBig')
+
+            let nativeName = document.createElement('div')
+            nativeName.classList.add('nativeName')
+            nativeName.innerText = "Native name: " + country.nativeName
+    
+            let population = document.createElement('div')
+            population.innerHTML = `Population: ${country.population}`
+    
+            let region = document.createElement('div')
+            region.innerHTML = `Region: ${country.region}`
+
+            let subRegion = document.createElement('div')
+            subRegion.innerHTML = `Sub region: ${country.subregion}`
+    
+            let capital = document.createElement('div')
+            capital.innerHTML = `Capital: ${country.capital}`
+            capital.classList.add('capital')
+
+            let topLevelDomain = document.createElement('div')
+            topLevelDomain.innerHTML = `Top Level Domain: ${country.topLevelDomain}`
+
+            let currencies = document.createElement('div')
+            currencies.innerHTML = `Currencies: ${country.currencies[0].code}`
+
+            
+            let languages = document.createElement('div')
+            languages.innerHTML = `Languages: ${country.languages.map(language => language = " " + language.name )}`
+
+            let borders = document.createElement('div')
+            borders.classList.add('borders')
+
+            let bordersArr = country.borders.map(border => border = arr.filter( country=> country.alpha3Code === border)[0].name)
 
 
+            bordersArr.forEach(border => {
+                let borderBox =  document.createElement('div')
+                borderBox.classList.add('borderBox')
+                borderBox.innerText= border
+                borders.appendChild(borderBox)
+
+                borderBox.addEventListener('click', () =>{
+                    root.innerHTML= ''
+
+                    arr.filter(country => country.name === border ).forEach(showCountry)
+                })
+
+            })
 
 
+            let cardRight = document.createElement('div')
+            cardRight.classList.add('cardRight')
+
+            let cardRightMain = document.createElement('div')
+            cardRightMain.classList.add('cardRightMain')
 
 
+    
+            
+            cardBig.appendChild(imgFlagBig)
+            cardRight.appendChild(titleBig)
+            cardRightMain.appendChild(nativeName)
+            cardRightMain.appendChild(population)
+            cardRightMain.appendChild(region)
+            cardRightMain.appendChild(subRegion)
+            cardRightMain.appendChild(capital)
+            cardRightMain.appendChild(topLevelDomain)
+            cardRightMain.appendChild(currencies)
+            cardRightMain.appendChild(languages)
+            
 
+            cardRight.appendChild(cardRightMain)
+            cardRight.appendChild(borders)
+            cardBig.appendChild(cardRight)
+            
+
+            root.appendChild(cardBig)
+
+            backBtn.classList.add('show')
+            searchInput.classList.add('hide')
+            searchSelect.classList.add('hide')
+
+        }
 
 
     }
 
-    await loadCountrylist();
+
+
 
 
     searchInput.addEventListener('change', () => {
         root.innerHTML= ''
 
-        arr.filter(country => country.name.toLowerCase().includes(searchInput.value) ||  country.capital.toLowerCase().includes(searchInput.value)).forEach(addCountry)
+        arr.filter(country => country.name.toLowerCase().includes(searchInput.value.toLowerCase()) ||  country.capital.toLowerCase().includes(searchInput.value.toLowerCase())).forEach(addCountry)
 
         document.querySelectorAll('.cardTitle').forEach(highlight)
         document.querySelectorAll('.capital').forEach(highlight)
@@ -193,43 +210,6 @@ async function setup(){
         arr.filter(country => country.region.includes(searchSelect.value)).forEach(addCountry)
 
     })
-
-
-
-
-
-
-    
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
