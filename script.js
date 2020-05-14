@@ -3,6 +3,7 @@ async function setup(){
     const searchInput = document.querySelector('.searchInput')
     const searchSelect = document.querySelector('.searchSelect')
     const backBtn = document.querySelector('.backBtn')
+    const darkMode = document.querySelector('.darkMode')
 
 
     let arr = []
@@ -208,6 +209,28 @@ async function setup(){
     searchSelect.addEventListener('change', () => {
         root.innerHTML =""
         arr.filter(country => country.region.includes(searchSelect.value)).forEach(addCountry)
+
+    })
+
+
+    let initialTheme
+
+    darkMode.addEventListener('click', () => {
+
+        const root = document.documentElement;
+
+        if(initialTheme) {
+          root.style.setProperty('--background-color', 'hsl(0, 0%, 98%)');
+          root.style.setProperty('--text-color', 'hsl(200, 15%, 8%)');
+          root.style.setProperty('--elements-color', 'hsl(0, 0%, 100%)');
+
+          initialTheme = false;  
+        } else {
+            root.style.setProperty('--background-color', 'hsl(207, 26%, 17%)');
+            root.style.setProperty('--text-color', 'hsl(0, 0%, 100%)');
+            root.style.setProperty('--elements-color', 'hsl(209, 23%, 22%)');
+          initialTheme = true;
+        }
 
     })
 
