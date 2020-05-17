@@ -72,19 +72,19 @@ async function setup(){
             const nativeName = createElement("div", "nativeName", cardRightMain)
             nativeName.innerText = "Native name: " + country.nativeName
 
-            const population = createElement("div", "population", cardRightMain)
+            const population = createElement("div", "populationBig", cardRightMain)
             population.innerHTML = `Population: ${country.population}`
    
-            const region = createElement("div", "region", cardRightMain)
+            const region = createElement("div", "regionBig", cardRightMain)
             region.innerHTML = `Region: ${country.region}`
 
 
             const subRegion = createElement("div", "subRegion", cardRightMain)
             subRegion.innerHTML = `Sub region: ${country.subregion}`
 
-            const capital = createElement("div", "capital", cardRightMain)
+            const capital = createElement("div", "capitalBig", cardRightMain)
             country.capital ? capital.innerHTML = `Capital: ${country.capital}` : capital.innerHTML = "Capital: No Capital"
-            capital.classList.add('capital')
+
 
 
             const topLevelDomain = createElement("div", "topLevelDomain", cardRightMain)
@@ -216,11 +216,6 @@ async function setup(){
         searchSelect.classList.remove('hide')
 
     })
-
-
-
-
-
 }
 
 

@@ -185,3 +185,10 @@ body{
 .darkMode{
     cursor: pointer;
 }
+
+.cardTitle,
+.population,
+.region,
+.capital{
+    padding-left: 10px;
+}
